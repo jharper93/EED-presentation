@@ -1,9 +1,26 @@
-import logo from './logo.svg';
 import React from 'react'
 import './App.css';
 import styled from 'styled-components'
 import {BarGraph} from './components/barChart'
 import axios from  'axios'
+import firebase from "firebase/app";
+import "firebase/database";
+import {
+  FirebaseDatabaseProvider,
+  FirebaseDatabaseNode
+} from "@react-firebase/database";
+
+
+const config = {
+  apiKey: "AIzaSyDUY89t3eTe709M0hm3kUKsDaUsKxovMsQ",
+  authDomain: "dhi-water-level-sensor.firebaseapp.com",
+  databaseURL: "https://dhi-water-level-sensor-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "dhi-water-level-sensor",
+  storageBucket: "dhi-water-level-sensor.appspot.com",
+  messagingSenderId: "801580174142",
+  appId: "1:801580174142:web:415306920273bdc0583a6f",
+  measurementId: "G-Y95C4WH5HY"
+};
 
 const App = () => {
 
@@ -26,19 +43,37 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <$Container >
-          <$Header>Water level tester</$Header>
-            <$BarGraphContainer>
-                <BarGraph level={level}/>
-            </$BarGraphContainer>
-        </$Container>
-        <button onClick={fetchData}>
-          click
-        </button>
-      </header>
-    </div>
+    <FirebaseDatabaseProvider firebase={firebase} {...config}>
+      <FirebaseDatabaseNode
+            path="range/"
+            limitToFirst={level}
+         
+          >
+
+
+
+
+{data => {
+  console.log(data)
+              return (
+                <div className="App">
+                <header className="App-header">
+                  <$Container >
+                    <$Header>Water level tester</$Header>
+                      <$BarGraphContainer>
+                          <BarGraph level={data.value.value}/>
+                      </$BarGraphContainer>
+                  </$Container>
+                  <button onClick={fetchData}>
+                    click
+                  </button>
+                </header>
+              </div>)
+            }}
+
+  
+    </FirebaseDatabaseNode>
+    </FirebaseDatabaseProvider>
   );
 }
 

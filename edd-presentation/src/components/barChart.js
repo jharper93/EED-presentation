@@ -7,7 +7,7 @@ export const BarGraph = ({level}) => {
 
     const data = [
         {
-          name: 'Water level',  pv: level 
+          name: 'Water level',  level: level 
         },
       ];
       
@@ -24,11 +24,11 @@ export const BarGraph = ({level}) => {
         }}
       >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis type="number" domain={[0, 100]}/>
+        <XAxis type="number" domain={[0, 10]}/>
         <YAxis dataKey="name" type="category" />
         <Tooltip />
         <Legend />
-        <Bar dataKey="pv" barSize={40} fill="#413ea0" />
+        <Bar dataKey="level" barSize={40} fill="#413ea0" />
       </ComposedChart>
       </ResponsiveContainer>
     )
