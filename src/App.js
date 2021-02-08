@@ -40,7 +40,8 @@ const App = () => {
         <FirebaseDatabaseProvider firebase={firebase} {...config}>
           <FirebaseDatabaseNode path="range/" limitToFirst={0}>
             {(data = 0) => {
-              setCurrentLevel(data.value?.value ?? 0);
+              data.value?.value && setCurrentLevel(data.value?.value ?? 0);
+              console.log("data", data.value?.value);
 
               return (
                 <>
@@ -49,15 +50,6 @@ const App = () => {
                     <$BarGraphContainer>
                       <BarGraph level={data.value?.value} />
                     </$BarGraphContainer>
-                    <$Header>current volume: {volume(currentLevel)}</$Header>
-                    <$Header>Initial level: {initialLevel}</$Header>
-                    <$Header>Current level: {currentLevel}</$Header>
-                    <button onClick={() => setInitialLevel(currentLevel)}>
-                      Set initial level
-                    </button>
-                    <button onClick={() => volume(0, 5)}>
-                      Caclculate volume difference
-                    </button>
                   </$Container>
                 </>
               );
@@ -86,7 +78,7 @@ const $Header = styled.div`
   font-weight: bold;
 `;
 const $BarGraphContainer = styled.div`
-  width: 80%;
+  width: 90%;
   height: 200px;
   margin: 50px 0 50px -50px;
 `;

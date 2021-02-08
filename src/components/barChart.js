@@ -13,7 +13,7 @@ import {
 export const BarGraph = ({ level = 0 }) => {
   const data = [
     {
-      name: "Water level",
+      name: "Sensor",
       level: level,
     },
   ];
@@ -22,18 +22,23 @@ export const BarGraph = ({ level = 0 }) => {
     <ResponsiveContainer>
       <ComposedChart
         layout="vertical"
-        width={500}
+        width={600}
         height={100}
         data={data}
         margin={{
           top: 20,
-          right: 20,
+          right: 40,
           bottom: 20,
-          left: 20,
+          left: 40,
         }}
       >
         <CartesianGrid stroke="#f5f5f5" />
-        <XAxis type="number" domain={[0, 45]} />
+        <XAxis
+          type="number"
+          domain={[0, 100]}
+          tickCount={5}
+          ticks={[0, 25, 50, 75, 100]}
+        />
         <YAxis dataKey="name" type="category" />
         <Tooltip />
         <Legend />
