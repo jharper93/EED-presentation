@@ -53,8 +53,8 @@ const App = () => {
 
 
 
-{data => {
-  console.log(data)
+{(data = 0) => {
+
               return (
                 <div className="App">
                 <header className="App-header">
