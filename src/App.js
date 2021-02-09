@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { BarGraph } from "./components/barChart";
-import axios from "axios";
 import firebase from "firebase/app";
 import "firebase/database";
 import {
@@ -23,17 +22,6 @@ const config = {
 };
 
 const App = () => {
-  const [initialLevel, setInitialLevel] = React.useState(0);
-  const [currentLevel, setCurrentLevel] = React.useState(0);
-
-  React.useEffect(() => {
-    setCurrentLevel(initialLevel);
-  }, [initialLevel]);
-
-  const volume = (initialLevel = 0, currentLevel = 0) => {
-    return 0.1 * 0.15 * (currentLevel - initialLevel);
-  };
-
   return (
     <div className="App">
       <header className="App-header">
@@ -41,7 +29,6 @@ const App = () => {
           <FirebaseDatabaseNode path="range/" limitToFirst={0}>
             {(data = 0) => {
               data.value?.value && setCurrentLevel(data.value?.value ?? 0);
-              console.log("data", data.value?.value);
 
               return (
                 <>
